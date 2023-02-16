@@ -17,9 +17,7 @@ indexing).
 
 class Solution{
   public:
-    // Function to find floor of x
-    // n: size of vector
-    // x: element whose floor is to find
+    
     int findFloor(vector<long long> arr, long long n, long long X){
         
         long long left = 0, right = n-1, mid = (right + left)/2;
