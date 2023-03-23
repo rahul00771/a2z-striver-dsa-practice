@@ -21,7 +21,7 @@
 	         else if(pow(check, n)>m)
 	         {
 	             upper = check;             //upper bounf for answer range
-	             check = check/2;           //binary condition
+	             check = check/n;           //binary condition
 	         }
 	         else                           //finding the lower bound for answer range
 	         {
