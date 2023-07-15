@@ -1,0 +1,24 @@
+// 1752.
+//To check whether a rotated array is sorted or not
+
+class Solution {
+public:
+    bool check(vector<int>& nums) {
+        
+        //for a sorted array, the total number of comparisons should be n-1
+
+            int count = 0;
+            for(int i = 0; i<nums.size()-1; i++)
+            {
+                if(nums[i]<=nums[i+1])
+                    count++;
+            }
+            if(nums[nums.size()-1]<=nums[0])
+                count++;
+
+            if(count >= nums.size()-1)
+                return true;
+            else
+                return false;
+    }
+};

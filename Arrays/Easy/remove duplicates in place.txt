@@ -1,0 +1,27 @@
+
+//26. Remove duplicates in a sorted array IN PLACE
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+
+        vector<int>::iterator it;       //taking an iterator for erase function
+
+        int i = 0;
+
+        while(i<nums.size()-1)
+        {
+            it = nums.begin() + i;
+            if(nums[i] == nums[i+1])
+            {
+                nums.erase(it);         //erasing the number if it is equal to next
+                     //not incrementing i as a number will be deleted and i will auto increase
+            }
+            else
+                i++;                    //if not equal then move to next
+        }
+
+
+        return nums.size();
+    }
+};
