@@ -1,0 +1,29 @@
+//283. Move zeroes to end
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        
+        int n = nums.size(), cnt = 0;
+        vector<int>::iterator it;
+
+        for(int i = 0; i<n; i++)        //to count number of zeroes
+        {
+            if(nums[i] == 0)
+                cnt++;
+        }
+
+        //to erase zeroes in place
+
+        nums.erase(remove (nums.begin(), nums.end(), 0), nums.end());
+
+        //to push zeroes at end
+
+        for(int i = 0; i<cnt; i++)
+        {
+            nums.push_back(0);
+        }
+
+
+    }
+};
