@@ -1,0 +1,73 @@
+//Union of two sorted arrays
+
+
+#include<bits/stdc++.h>
+
+vector < int > sortedArray(vector < int > a, vector < int > b) {
+    
+
+    int n1 = a.size(), n2 = b.size();      //size of the array
+    vector<int> ans;                       //answer vector
+    
+    int i = 0, j = 0;                       //two pointers for indices
+
+    //comparing the first ele and push the smaller to avoid ans.back() exception (segmentation)
+
+    if(a[0]<=b[0])
+    {
+        ans.push_back(a[0]);
+        i++;
+    }
+    else 
+    {
+        ans.push_back(b[0]);
+        j++;
+    }
+
+
+    //iterating while the end of any one of the array
+
+    while(i<n1 && j<n2)
+    {
+        //find the smaller ele, and push if it is not present already in ans, and increment the pointer
+        
+        if(a[i]<b[j])
+        {
+            if(ans.back() != a[i])
+                ans.push_back(a[i]);
+            i++;
+        }
+        else if(b[j]<a[i])
+        {
+            if(ans.back() != b[j])
+                ans.push_back(b[j]);
+            j++;
+        }
+        else
+        {
+            if(ans.back() != a[i])
+                ans.push_back(a[i]);
+            i++;
+            j++;
+        }
+
+    }
+
+    //for the remaining of either of the arrays, pushing the distinct elements
+
+    for( ; i<n1; i++)
+    {
+        if(ans.back() != a[i])
+            ans.push_back(a[i]);
+    }
+
+    for( ; j<n2; j++)
+    {
+        if(ans.back() != b[j])
+            ans.push_back(b[j]);
+    }
+    
+
+
+    return ans;
+}
