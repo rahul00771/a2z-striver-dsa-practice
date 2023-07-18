@@ -1,0 +1,23 @@
+//485. Max consecutive 1's
+
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        
+        int curr = 0, ans = 0, n = nums.size();
+
+        for(int i = 0; i<n; i++)
+        {
+            if(nums[i] == 1)        //current sequence of 1's
+            {
+                curr++;
+            }
+            else
+            {
+                ans = max(ans, curr);       //if non 1 ele occurs, take the curr and reset to 0
+                curr = 0;
+            }
+        }
+        return max(ans, curr);      //finally return the max of curr and ans
+    }
+};
