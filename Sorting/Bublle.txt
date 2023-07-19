@@ -1,0 +1,22 @@
+//Bubble sort
+
+//intuition: bubbling up the smaller elements om top by settling the heavier elements to bottom
+
+void bubbleSort(int arr[], int n) 
+{
+    for(int i = 0; i<n; i++)
+    {
+        int flag = 0;                         //it will count no. of swaps 
+        for(int j = 0; j<n-1-i; j++)    //n-1-i coz, in each iteration ele from last gets sorted,
+                                        //so no need to go to n again, stop at n-1-i
+        {
+            if(arr[j]>arr[j+1])
+            {
+                swap(arr[j], arr[j+1]);
+                flag++;
+            }
+        }
+        if(flag == 0)                   //if no swaps made, means array is already sorted
+            break;
+    }
+}

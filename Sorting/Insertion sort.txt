@@ -1,0 +1,21 @@
+
+//iterative Insertion sort
+
+//consider left element to be sorted, take one ele from right and insert in correct position in left
+
+void insertionSort(vector<int> &a, int n)
+{
+
+	for(int i = 1; i<n; i++)
+	{
+		int j = i-1;
+		int x = a[i];
+		while(j>-1 && x<a[j] )
+		{
+			a[j+1] = a[j];
+			j--;
+		}
+		a[j+1] = x;
+	}
+	
+}
