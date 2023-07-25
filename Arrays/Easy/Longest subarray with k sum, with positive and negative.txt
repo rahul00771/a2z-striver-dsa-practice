@@ -1,0 +1,39 @@
+//Longest subarray with k sum(including positives and negatives)
+
+#include <bits/stdc++.h> 
+int getLongestSubarray(vector<int>& nums, int k){
+    
+    unordered_map<int, int> prefixSum;  //for storing the sum of the array from 0 to i
+    int n = nums.size(), sum = 0, len = 0, maxLen = 0;
+
+    
+    //iterating contiguosly from 0 to i and store the sum and index in a map,
+    
+
+    for(int i = 0; i<n; i++)
+    {
+        sum = sum + nums[i];
+        //if we found sum == k, then it is a candidate of our answer
+        if(sum == k)
+            maxLen = max(len, i+1);
+        
+        //for finding that whether a subarray with k sum is there or not
+        int rem = sum - k;
+
+        //if it is present then find the index and calculate the length
+        if(prefixSum.find(rem) != prefixSum.end())
+        {
+            len = i-prefixSum[rem];
+            maxLen = max(len, maxLen);
+        }
+
+        //if sum is already not present in the map then push itin the map
+        if(prefixSum.find(sum) == prefixSum.end())     
+            prefixSum[sum] = i;
+                
+    }
+
+    return maxLen;
+
+
+}
