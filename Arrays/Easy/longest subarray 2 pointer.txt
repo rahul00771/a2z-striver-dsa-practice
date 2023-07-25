@@ -1,0 +1,32 @@
+//2pointer longest subarray with only positives
+
+
+#include<bits/stdc++.h>
+
+int longestSubarrayWithSumK(vector<int> nums, long long k) {
+    
+    int ans = 0, n = nums.size();
+    long long sum = nums[0];
+
+    int left = 0, right = 0;
+
+    while(left<n && right <n)
+    {
+        while(sum>k && left<=right)
+        {
+            sum = sum - nums[left];
+            left++;
+        }
+        if(sum == k)
+        {
+            ans = max(ans, right-left+1);
+        }
+        
+        right++;
+        sum = sum + nums[right];
+    }
+
+    return ans;
+    
+
+}
