@@ -1,0 +1,29 @@
+//169. Majority element
+
+// find ele that occurs >n/2 times
+
+class Solution {
+public:
+
+    //Moore's voting algo
+
+    //O(n)
+
+//suppose an ele occured 3 times, then  again 3 more diff elements occured making count 0, means no majority ele till now, make next ele as element and increase count if found again, if no one cancels it then it is majority element
+
+    int majorityElement(vector<int>& nums) {
+
+        int element = INT_MIN, count = 0;
+
+        for(int i = 0; i<nums.size(); i++)
+        {
+            if(count == 0)              //no maj ele till now
+                element = nums[i];
+            if(nums[i] == element)      //check if element is maj or not by incrementing count
+                count++;
+            else
+                count--;                //if not element then decrease count
+        }
+        return element;
+    }
+};

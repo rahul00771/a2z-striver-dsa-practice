@@ -1,0 +1,39 @@
+73. Sort colors
+
+//An array of 3 colors(0, 1, 2) is given, sort them.
+
+class Solution {
+public:
+
+//Dutch national flag algo(3 pointer)
+//low to mid-1  -> 0s
+//mid to high   -> 1s
+//higgh++1 to n -> 2s
+    void sortColors(vector<int>& nums) {
+        
+        int n = nums.size();
+        int low = 0, mid = 0, high = n-1;
+
+        while(mid<=high)
+        {
+            if(nums[mid] == 0)
+            {
+                swap(nums[mid], nums[low]);
+                low++;
+                mid++;
+            }
+            else if(nums[mid] == 1)
+            {
+                mid++;
+            }
+            else
+            {
+                swap(nums[mid], nums[high]);
+                high--;
+            }
+            
+        }
+
+
+    }
+};
