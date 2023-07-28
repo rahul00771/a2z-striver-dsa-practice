@@ -1,0 +1,40 @@
+//31. Next permutaion
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        
+        int n = nums.size(), brk_point = -1, second_ind = 0;
+
+        //finding the break point
+        for(int i = n-1; i>0; i--)
+        {
+            if(nums[i]>nums[i-1])
+            {
+                brk_point = i-1;
+                break;
+            }
+        }
+
+        if(brk_point == -1)
+        {
+            reverse(nums.begin(), nums.end());
+            return;
+        }
+
+        //to find ele that is greater than brk point
+        for(int i = n-1; i>brk_point; i--)
+        {
+            if(nums[i]>nums[brk_point])
+            {
+                second_ind = i;
+                break;
+            }
+
+        }
+
+        swap(nums[second_ind], nums[brk_point]);
+        reverse(nums.begin()+brk_point+1, nums.end());
+
+    }
+};

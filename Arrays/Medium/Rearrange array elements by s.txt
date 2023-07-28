@@ -1,0 +1,36 @@
+//2149. Rearrange array elements by sign
+
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& arr) {
+        
+        int n = arr.size();                 
+        int temp[n];
+	    int p_index = 0, n_index = 1;   //pos will start from 0, neg from 1
+	    
+	    for(int i = 0; i<n; i++)
+	    {
+	        if(arr[i] < 0)
+	        {
+	            temp[n_index] = arr[i];
+	            n_index += 2;
+	        }
+	        else
+	        {
+	            temp[p_index] = arr[i];
+	            p_index += 2;
+	        }
+	        
+	    }
+
+        arr.clear();                    //clearing the vector arr
+	    
+	   for(int i = 0; i<n; i++) 
+	   {
+	       arr.push_back(temp[i]);      //reasigning the vector
+	   } 
+
+        return arr;
+
+    }
+};
