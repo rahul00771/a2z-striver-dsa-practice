@@ -1,0 +1,21 @@
+//Leaders in an array
+
+vector<int> superiorElements(vector<int>&a) {
+    
+    vector<int> ans;
+    int n = a.size(), i = n - 1, max = a[i];
+
+    ans.push_back(max);
+
+    //iterating from left to right
+    while(i>0)
+    {
+        if(a[i-1]>max)
+        {
+            max = a[i-1];           //store the max till now from right, if any ele is >max, it becomes a leader
+            ans.push_back(max);
+        }
+        i--;
+    }
+    return ans;
+}
