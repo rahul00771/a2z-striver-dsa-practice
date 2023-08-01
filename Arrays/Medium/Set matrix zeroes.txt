@@ -1,0 +1,37 @@
+//73. Set matrix zeroes
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int> >& matrix) {
+
+        int m = matrix.size(), n = matrix[0].size();
+        vector<int> zero_index;
+
+
+        for(int i = 0; i<m; i++)
+        {
+            for(int j = 0; j<n; j++)
+            {
+                if(matrix[i][j] == 0)
+                {
+                    zero_index.push_back(i);                    
+                    zero_index.push_back(j);                    
+                }
+            }
+        }
+
+        //making the matrix element at zero_index position = 0.
+        for(int i = 0; i<zero_index.size(); i = i+2)
+        {
+            for(int j = 0; j<m; j++)
+            {
+                matrix[j][zero_index[i+1]] = 0;
+            }
+            for(int k = 0; k<n; k++)
+            {
+                matrix[zero_index[i]][k] = 0;
+            }
+        }
+    
+    }
+};

@@ -1,0 +1,77 @@
+//128. Longest consecutive seq
+
+//time optimised soln
+//O(n) soln as searching in unordered set takes O(1) time
+//in some cases of collision, takes even more time than brute force
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        
+        unordered_set<int> st;
+        int cnt = 1, ans = 1;
+
+        if(nums.size()==0)
+            return 0;
+
+        //inserting the elements in a set
+        for(int i = 0; i<nums.size(); i++)
+            st.insert(nums[i]);
+
+        for(auto it: st)
+        {
+            //if it-1 is not present, it can be a sequence stater
+            if(st.find(it-1) == st.end())   
+            {
+                cnt = 1;
+                int x = it+1;
+                //find consecutive elements
+                while(st.find(x) != st.end())
+                {
+                    x++;
+                    cnt++;
+                }
+            }
+            
+            ans = max(ans, cnt);
+        }
+        return ans;
+        
+    }
+};
+
+
+
+//space optimised soln
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        
+        int n = nums.size();
+
+        sort(nums.begin(), nums.end());
+
+        int lastSmall = INT_MIN, cnt = 0, ans = 0;
+
+        for(int i = 0; i<n; i++)
+        {
+            //if the diff is 1 means consecutive, hence increment cnt
+            if(nums[i] - 1 == lastSmall)
+            {
+                cnt++;
+                lastSmall = nums[i];
+            }
+            // > lastSmall + 1 means non continuous, cnt = 1
+            else if(nums[i] > lastSmall+1)
+            {
+                cnt = 1;
+                lastSmall = nums[i];
+            }
+            ans = max(cnt, ans);
+        }
+        
+        return ans;
+    }
+};
+
