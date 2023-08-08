@@ -1,0 +1,56 @@
+//54. Spiral matrix
+
+class Solution {
+public:
+vector<int> spiralOrder(vector<vector<int>>& matrix)
+{
+    int m = matrix.size(), n = matrix[0].size();
+    int top = 0, right = n-1, bottom = m-1, left = 0;           //4 edges
+    vector<int> ans;
+
+    while(left<=right && top<=bottom)
+    {
+        //left to right
+        for(int j = left; j<=right; j++)
+            ans.push_back(matrix[top][j]);
+        
+        top++;          //will be going one step down(cutting one edge from the top)
+
+        if(top>bottom)
+            return ans;
+
+
+        //top to bottom
+        for(int i = top; i<=bottom; i++)
+            ans.push_back(matrix[i][right]);
+        
+        right--;       //cutting one edge from the right
+
+
+        if(right<left)
+            return ans;
+
+        //right to left
+        for(int j = right; j>=left; j--)
+            ans.push_back(matrix[bottom][j]);
+        
+        bottom--;       //cutting one edge from the bottom
+
+
+        if(top>bottom)
+            return ans;
+
+        //bottom to top
+        for(int i = bottom; i>=top; i--)
+            ans.push_back(matrix[i][left]);
+
+        left++;
+
+        if(right<left)
+            return ans;
+    }
+
+    return ans;
+
+}   
+};

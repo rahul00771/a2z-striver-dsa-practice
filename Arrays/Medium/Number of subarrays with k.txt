@@ -1,0 +1,21 @@
+//560. Number of subarrays with k
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+
+        unordered_map<int, int> preSumFrequency;        //storing no. of (preSum - k) till now
+        int cnt = 0, preSum = 0;
+        preSumFrequency[0] = 1;
+
+        for(int i = 0; i<nums.size(); i++)
+        {
+            preSum += nums[i];                          //sum+=nums[i]
+            cnt += preSumFrequency[preSum-k];           //counting how many subarrays with k are possible at current i
+            preSumFrequency[preSum] += 1;               //storing the current preSum for further iterations
+        }
+        
+        return cnt;
+    }
+    
+};
