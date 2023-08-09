@@ -1,0 +1,35 @@
+//118. Pascal's triangle
+
+class Solution {
+public:
+
+    vector<vector<int>> generate(int numRows) {
+       
+        vector<vector<int>> pascal;
+
+
+        for(int i = 0; i<numRows; i++)
+        {
+            vector<int> tempList;               //to store the current row
+            tempList.push_back(1);              //push the first 1
+
+
+            //pushing the middle elements in between 1's
+
+            for(int j = 0; j<i-1; j++)          //i-1 because, middle elements start from i = 2
+            {
+                tempList.push_back(pascal[i-1][j]+pascal[i-1][j+1]);
+            }
+
+            //pushing the last 1 only if i>0 coz in first row only starting 1 is there
+
+            if(i>0)
+                tempList.push_back(1);
+            
+            pascal.push_back(tempList);         //pushing the row
+
+        }
+
+        return pascal;                
+    }
+};
