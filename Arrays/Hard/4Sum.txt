@@ -1,0 +1,54 @@
+//18. 4Sum
+
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+
+        int n = nums.size();
+        vector<vector<int>> ans;
+
+        sort(nums.begin(), nums.end());
+
+        //fixing the 1st ele(nums[i])
+        for(int i = 0; i<n-3; i++)
+        {
+            //checking duplicates in the ith place
+            if(i>0 && nums[i] == nums[i-1])
+              continue;
+
+            //fixing the 2nd element(nums[j])
+            for(int j = i+1; j<n-2; j++)
+            {
+                if(j>i+1 && nums[j]==nums[j-1])
+                  continue;
+                //taking other 2 elements and checking
+                int left = j+1, right = n-1;
+                vector<int> temp;
+                while(left<right)
+                {
+                    //preventing the int overflow condition
+                    long sum = nums[i];
+                    sum += nums[j];
+                    sum += nums[left];
+                    sum += nums[right];
+                                                                    
+                    if(sum == target)
+                    {
+                        vector<int> temp = {nums[i], nums[j], nums[left], nums[right]};                          
+                        ans.push_back(temp);
+                        left++;                        
+                        while(left<right && nums[left] == nums[left-1])
+                            left++;                        
+                    }
+                    else if(sum<target)
+                        left++;
+                    else
+                        right--;
+                }
+            }
+        }
+
+        return ans;
+
+    }
+};
