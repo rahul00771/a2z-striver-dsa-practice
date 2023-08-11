@@ -1,0 +1,20 @@
+//Subarray with given xor
+
+int Solution::solve(vector<int> &A, int B) {
+    
+    int ans = 0;
+    unordered_map<int, int> prefixXOR;
+    
+    int XOR = 0;
+    for(int i = 0; i<A.size(); i++)
+    {
+        XOR = A[i]^XOR;
+        if(XOR == B)
+            ans++;
+        int remXOR = XOR^B;
+        
+        ans = ans + prefixXOR[remXOR];
+        prefixXOR[XOR]++;
+    }
+    return ans;
+}

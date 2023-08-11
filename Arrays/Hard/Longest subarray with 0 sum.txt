@@ -1,0 +1,39 @@
+// Longest subarray with 0 sum
+
+
+#include<bits/stdc++.h>
+#include<vector>
+
+int getLongestZeroSumSubarrayLength(vector<int> &arr){
+	// Write your code here.
+
+	int ans = 0, n = arr.size(), sum = 0, len = 0;
+	unordered_map<int, int> prefixSum;		
+
+	int currSum = 0;
+	for(int i = 0; i<n; i++)
+	{		
+		currSum += arr[i];
+		int rem = currSum;
+
+		if(currSum == 0)
+		{
+			len = i+1;
+			ans = max(len, ans);
+		}
+
+
+		if(prefixSum.find(rem) != prefixSum.end())
+		{
+			len = i-prefixSum[rem];
+			ans = max(ans, len);
+		}
+
+		if(prefixSum.find(currSum) == prefixSum.end())
+			prefixSum[currSum] = i;
+
+	}
+	
+	return ans;
+	
+}

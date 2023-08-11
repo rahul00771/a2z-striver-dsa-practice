@@ -1,0 +1,41 @@
+//88. Merge sorted array without using extra space
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        
+        //index counters for nums1 and nums2
+        int i = 0, j = 0;
+
+        //i goes till m+j because after that there are all 0s, and we need to push all nums2 to nums1
+        while(i<m+j && j<n)
+        {
+            //if nums1 is lesser do nothing just move on(increment i)
+            if(nums1[i]<=nums2[j])
+                i++;
+
+
+            else if(nums2[j]<nums1[i])
+            {
+                //k is the index of last element of nums1 that is non zero
+                //we need to shift the elements from index k to i+1 by 1 position to accomodate space for nums2 at i
+                int k = m+j;
+                while(k>i)
+                {
+                    nums1[k] = nums1[k-1];
+                    k--;
+                }
+                //inserting nums2 at i
+                nums1[i] = nums2[j];
+                j++;
+            }                
+        }        
+
+        //pushing the remaining elements of nums2 to nums1
+        while(i<m+n && j<n)
+        {
+            nums1[i++] = nums2[j++];
+        }
+        
+    }
+};
