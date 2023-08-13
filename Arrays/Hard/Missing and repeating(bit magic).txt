@@ -1,0 +1,63 @@
+//Missing and repeating(bit magic)
+
+
+#include<bits/stdc++.h>
+
+vector<int> findMissingRepeatingNumbers(vector < int > a) {
+
+    int XOR = 0, n = a.size();
+
+    //XORing all the elements and i
+
+    for(int i = 0; i<n; i++)
+    {
+        XOR = XOR^a[i];
+        XOR = XOR^(i+1);
+    }
+
+    //we got xor of missing and repeating, now find right most set bit(deciding bit)
+
+    int setBitNo = 0;
+    while(1)
+    {
+        if((XOR&(1<<setBitNo)) != 0 )
+            break;
+        else
+            setBitNo++;
+    }
+
+    //we got the set bit, based on that we will have our missing and repeating
+
+    int zeroSetBit = 0, oneSetBit = 0;
+
+    //determining the numbers with the deciding set bit and XORing to find the element that occurs odd no of times
+    for(int i = 0; i<n; i++)
+    {
+        if((a[i]&(1<<setBitNo)) == 0 )
+            zeroSetBit = zeroSetBit ^ a[i];
+        else
+            oneSetBit = oneSetBit ^ a[i];
+    }
+    for(int i = 1; i<=n; i++)
+    {
+       if((i&(1<<setBitNo)) == 0 )
+            zeroSetBit = zeroSetBit ^ i;
+        else
+            oneSetBit = oneSetBit ^ i; 
+    }
+
+    //we got two numbers that occurs odd no. of times, these are our numbers
+
+    int cnt = 0;
+    for(int i = 0; i<n; i++)
+    {
+        if(a[i] == zeroSetBit)
+            cnt++;
+    }
+
+    if(cnt == 2)
+        return {zeroSetBit, oneSetBit};
+    else
+        return {oneSetBit, zeroSetBit};
+
+}
