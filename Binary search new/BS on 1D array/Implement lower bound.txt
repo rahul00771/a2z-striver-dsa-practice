@@ -1,0 +1,40 @@
+//Implement lower bound
+
+int lowerBound(vector<int> arr, int n, int x) {
+	// Write your code here
+
+	int left = 0, right = n-1;
+
+	while(left<=right)
+	{
+		int mid = (left+right)/2;
+
+		if(arr[mid] > x)
+		{
+			//if mid>x but mid-1 is <x -> mid is the answer
+			if(arr[mid-1]<x || mid == 0)
+				return mid;
+			right = mid - 1;
+		}
+
+		else if(arr[mid] < x)		
+		{
+			//if mid is smaller but next i.e mid+1 is >=x
+			if(arr[mid+1] >= x)
+				return mid+1;
+			left = mid + 1;
+		}
+		else
+		{
+			//if mid == x then check if mid-1 is also x, if yes move left
+			if(arr[mid-1] == x)
+				right = mid - 1;
+			else
+				return mid;
+		}				
+
+	}
+
+	return n;
+
+}
