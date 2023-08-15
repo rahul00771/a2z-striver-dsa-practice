@@ -1,0 +1,27 @@
+//Ceil the floor
+
+pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
+	// Write your code here.
+
+		int floor = INT_MIN, ceiling = INT_MAX;
+		
+		for(int i = 0; i<n; i++)
+		{
+			if(arr[i] == x)
+				return make_pair(arr[i], arr[i]);
+			if(arr[i]>x)
+				ceiling = min(ceiling, arr[i]);
+			else if(arr[i]<x)			
+				floor = max(floor, arr[i]);
+
+		}
+
+		if(floor == INT_MIN)
+			floor = -1;
+		if(ceiling == INT_MAX)
+			ceiling = -1;
+			
+		return make_pair(floor, ceiling);
+
+
+}
