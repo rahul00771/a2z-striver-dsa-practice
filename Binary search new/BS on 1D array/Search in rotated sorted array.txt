@@ -1,0 +1,39 @@
+//33. Search in rotated sorted array
+class Solution {
+public:
+    int search(vector<int>& arr, int key) {
+
+        int n = arr.size(), left = 0, right = n-1,  mid = (left+right)/2;
+
+
+        while(left<=right)
+        {
+            mid = (left+right)/2;
+
+            if(arr[mid] == key)
+                return mid;            
+            //if left part is sorted
+            if(arr[left]<=arr[mid])
+            {
+                //if key lies in the sorted part
+                if(key>=arr[left] && key<arr[mid])
+                    right = mid-1;
+                //if key lies in the unsorted part                    
+                else
+                    left = mid +1;
+            }
+            //if right part is sorted
+            else
+            {
+                //if key lies in the sorted part
+                if(key>arr[mid] && key<=arr[right])
+                    left = mid +1;
+                //if key lies in the unsorted part
+                else
+                    right = mid -1;
+            }
+
+        }
+        return -1;
+    }
+};
