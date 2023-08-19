@@ -1,0 +1,36 @@
+//153. Min in rotated sorted
+
+class Solution {
+public:
+    int findMin(vector<int>& arr) {
+            
+        int n = arr.size();
+        int left = 0, right = n-1, ans = INT_MAX;
+
+        while(left<=right)
+        {
+            int mid = (left+right)/2;
+
+            if(arr[left]<=arr[right])            
+            {
+                ans = min(ans, arr[left]);
+                return ans;
+            }
+
+            //if left part is sorted then left element may be a candidate, and crop the left side
+            if(arr[left]<=arr[mid])
+            {
+                ans = min(ans, arr[left]);
+                left = mid+1;
+            }
+            //if right part is sorted then mid element may be a candidate, and crop the right side
+            else
+            {
+                ans = min(ans, arr[mid]);
+                right = mid - 1;
+            }
+        }
+
+        return ans;
+    }
+};
