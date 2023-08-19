@@ -1,0 +1,43 @@
+/No. of times array is rotated
+
+#include<bits/stdc++.h>
+
+int findKRotation(vector<int> &arr){
+    // Write your code here.    
+
+    int n = arr.size(), left = 0, right = n-1, ans = INT_MAX, index = 0;  
+
+    if(arr[left]<=arr[right])
+         return left;
+
+    while(left<=right)
+    {        
+      int mid = (left+right)/2;
+
+      //if left half is sorted
+      if(arr[left]<=arr[mid])
+      {
+        if(arr[left] <= ans)
+        {
+          index = left;
+          ans = arr[left];
+        }
+        left = mid+1;
+      }
+
+      //is right half is sorted
+      else if(arr[mid]<=arr[right])
+      {
+        if(arr[mid]<=ans)        
+        {
+            index = mid;
+            ans = arr[mid];
+        }
+        right = mid-1;
+      }
+
+    }
+
+    return index;
+
+}
