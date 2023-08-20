@@ -1,0 +1,36 @@
+//Nth root of M
+
+int NthRoot(int n, int m) {
+  
+  // Write your code here.
+  int left = 1, right = m, mid;
+
+  while(left<=right)
+  {
+    mid = (left+right)/2;
+    long long int temp = 1;
+    //to count the current number of multiplications done
+    int cnt = 1;
+    while(cnt<=n)
+    {
+      temp = temp*mid;           
+      //checking if current sum becomes greater than m that cut the right half
+      if(temp>(long long int)m)
+      {
+        right = mid-1;
+        break;
+      }   
+      cnt++;  
+    }
+    //if n no. of multiplications are performed and we found temp == m, then it is answer
+    if(cnt == n+1 && temp == m)
+      return mid;
+    //if after performing n multiplications if temp is still <m cut left half
+    else if(cnt == n+1 && temp < m)
+      left = mid+1;
+    
+  }
+
+  return -1;
+
+}
