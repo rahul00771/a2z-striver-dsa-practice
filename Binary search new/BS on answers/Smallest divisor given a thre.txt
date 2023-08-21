@@ -1,0 +1,45 @@
+//1283. Smallest divisor given a threshold
+
+class Solution {
+public:
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        
+        int n = nums.size(), greatest = nums[0];
+
+        for(int i = 1; i<n; i++)
+        {
+            if(nums[i]>greatest)
+                greatest = nums[i];                     
+        }
+    
+        int left = 1, right = greatest, ans = greatest;
+
+        //Applying BS from 1 to greatest
+        while(left<=right)
+        {
+            int mid = (left+right)/2;
+            int sum = 0;
+
+            for(int i = 0; i<n; i++)
+            {
+                if(nums[i]%mid  == 0)
+                    sum = sum + (nums[i]/mid);
+                else
+                    sum = sum + (nums[i]/mid) + 1;
+                if(sum>threshold)
+                {
+                    left = mid+1;
+                    break;
+                }
+            }
+
+            if(sum <= threshold)
+            {
+                ans = min(ans, mid);
+                right = mid-1;
+            }
+        }
+
+        return ans;
+    }
+};

@@ -1,0 +1,76 @@
+//1482. Min number of days to make m bouqets
+
+class Solution {
+public:
+    int minDays(vector<int>& bloomsDay, int m, int k) {
+
+        int n = bloomsDay.size();
+        
+        //days will range from smallest to greatest
+        int smallest = bloomsDay[0], greatest = bloomsDay[0];
+
+        //finding the smallest and greatest for the range
+        for(int i = 1; i<n; i++)
+        {
+            if(bloomsDay[i]>greatest)
+                greatest = bloomsDay[i];
+            else if(bloomsDay[i]<smallest)
+                smallest = bloomsDay[i];
+        }
+
+        int left = smallest, right = greatest, ans = greatest;
+
+        //total number of flowers is is less than required
+        if((long long)m*k>n)
+            return -1;
+
+        //apply BS to fnd the appropriate day
+        while(left<=right)
+        {
+            int mid = (left+right)/2;
+            int bouqets = 0, flowers = 0;
+
+            for(int i = 0; i<n; i++)            
+            {
+                if(bloomsDay[i]<=mid)
+                {
+                    flowers++;
+                }
+                //if adjacent cannot give required number of flowers, skip it and start new flowers for bouqet
+                else if(bloomsDay[i]>mid)
+                {
+                    flowers = 0;
+                }
+                //if bouqet can be formed, increment bouqet and make flower 0, as new bouqet will be formed
+                if(flowers == k)
+                {
+                    bouqets++;
+                    flowers = 0;
+                }
+                //BS condition
+                if(bouqets>m)
+                {
+                    right = mid -1;
+                    break;
+                }
+            }
+
+            //minimising the answer
+            if(bouqets == m)
+            {
+                cout<<mid<<" ";
+                ans = min(ans, mid);
+                right = mid-1;
+            }
+            //BS condition
+            else if(bouqets<m)
+            {
+                left = mid+1;
+            }            
+
+        }
+
+        return ans;
+
+    }          
+};
