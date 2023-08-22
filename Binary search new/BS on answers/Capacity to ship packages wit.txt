@@ -1,0 +1,61 @@
+//1011. Capacity to ship packages within D
+
+class Solution {
+public:
+    int shipWithinDays(vector<int>& weights, int days) {
+
+        int n = weights.size(), totalPackages = 0, greatest = INT_MIN;
+        for(int i = 0; i<n; i++)
+        {
+            if(weights[i]>greatest)
+                greatest = weights[i];
+            totalPackages = totalPackages + weights[i];
+        }
+
+        //BS range will be from greatest to sum of all
+
+        int left = greatest, right = totalPackages, ans = totalPackages;
+
+        while(left<=right)
+        {
+            int mid = (left+right)/2;
+            int d = 0, sum = 0;
+            
+            //counting the days with mid as the capacity
+            for(int  i = 0; i<n; i++)
+            {
+                sum += weights[i];
+
+                if( i != n-1)
+                {
+                    if((sum<=mid) && (sum+weights[i+1]>mid))
+                    {
+                        d++;
+                        sum = 0;
+                    }
+                }
+                else if(i == n-1)
+                {
+                    if(sum<=mid)
+                        d++;
+                }
+
+                if(d>days)
+                {
+                    left = mid + 1;
+                }
+            }
+
+            //if we can ship with mid capacity within days days, we try to minimise capacity
+            if(d<=days)
+            {
+                ans = min(ans, mid);
+                right = mid - 1;
+            }
+            
+        }
+
+        return ans;
+
+    }
+};

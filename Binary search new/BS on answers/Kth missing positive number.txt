@@ -1,0 +1,26 @@
+//1539. Kth missing positive number
+
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+
+        int n = arr.size();
+        int left = 0, right = n-1, missing = 0;
+
+        while(left<=right)
+        {
+            int mid = (left+right)/2;
+            //finding the number of missing numbers at mid
+            missing = arr[mid] - (mid+1);
+
+            //by BS we find the neighbouring elements where k elements are missing
+            if(missing<k)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        
+        //arr[high] + (k-missing)
+        return (right + k + 1);
+    }
+};
