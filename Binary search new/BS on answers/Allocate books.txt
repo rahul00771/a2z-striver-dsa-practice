@@ -1,0 +1,81 @@
+//Allocate books
+
+int findPages(vector<int>& arr, int n, int m) {
+
+
+    //edge case
+    if(m>n)
+        return -1;
+
+    //we have to take min of max, so we take the range already from max, i.e >=greatst is always max
+    //if m = n -> there is only one case, and the only max becomes the answer
+    //if m = 1, only one case and sum will be the answer
+
+    //so we do BS from greatest to sum, and find the number of students if we allocate mid books(pages)
+    //if students>mid --> increase books pages to reduce students
+
+   int greatest = arr[0], sum = 0;
+
+   for(int i = 0; i<n; i++)
+   {
+        sum = sum + arr[i];
+        if(arr[i]>greatest)
+            greatest = arr[i];            
+   }
+
+    
+   int left = greatest, right = sum, ans = INT_MAX;
+   
+   //BS from greatest to sum (it is the range of answer(books(pages)))
+
+
+   while(left<=right)
+   {
+       int mid = (left+right)/2;
+       int curr = 0, students = 0;
+        
+
+       for(int i = 0; i<n; i++)
+       {
+            curr = curr + arr[i];
+
+            //checking if next book can be considered or not as per mid
+            if(i<n-1)
+            {                
+                int nextSum = curr + arr[i+1];
+                if(curr<=mid && nextSum>mid)
+                {    
+                    students++;
+                    curr = 0;
+                }
+            }
+            else if(i == n-1)
+            {
+                if(curr<=mid)
+                    students++;
+
+            }    
+                    
+            if(students>m)
+            {
+                left = mid + 1;
+                break;
+            }            
+       }     
+
+
+        //BS condition
+        if (students > m) {
+            left = mid + 1;
+        }
+        else {
+            ans = min(ans, mid);
+            right = mid - 1;
+        }
+
+
+   }
+
+   return ans;
+
+}

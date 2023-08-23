@@ -1,0 +1,47 @@
+//Aggressive cows
+int aggressiveCows(vector<int> &stalls, int k)
+{
+
+
+    //sorting the vector
+    sort(stalls.begin(), stalls.end());
+
+    int n = stalls.size();
+    int left = 0, right = stalls[n-1], ans = 0;
+
+    //BS range ranges from 0 to gretest
+    while(left<=right)
+    {
+        int mid = (left + right)/2;
+        int cows = 1, distance = 0;
+        for(int i = 1; i<n; i++)
+        {
+            //consecutive distance
+            int d = stalls[i]-stalls[i-1];
+            //distance till now
+            distance = distance + d;
+
+            if(distance>=mid)
+            {
+                cows++;
+                distance = 0;
+            }
+
+            if(cows>=k)
+            {
+                ans = max(ans, mid);
+                left = mid + 1;
+                break;
+            }
+        }
+
+        if(cows<k)
+        {
+            right = mid - 1;
+        }
+        
+    
+    }
+
+    return ans;
+}
