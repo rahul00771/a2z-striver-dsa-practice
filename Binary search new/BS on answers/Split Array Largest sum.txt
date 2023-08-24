@@ -1,0 +1,54 @@
+//410. Split Array Largest sum
+
+class Solution {
+public:
+    int splitArray(vector<int>& nums, int k) {
+        
+        //since our answer will be minimum of maximums, we start searching the answer from min max possible
+        //irrespective of the no. of partitions or k,
+        //therefore, range will start from greatest in case of k = n, and sum in case of k = 1;
+
+        int n = nums.size();
+        //gives the greatest ele
+        int greatest = *max_element(nums.begin(), nums.end());
+        //accumulates all the elements from begin to end with initial value 0
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+
+        int left = greatest, right = sum, ans = sum;
+
+        while(left<=right)
+        {
+            int mid = (left+right)/2;
+
+            int curr = 0, calcK = 1;
+            //counting k with mid as answer
+           for (int i = 0; i < n; i++) 
+           {
+                if (curr + nums[i] <= mid) 
+                {
+                    //insert element to current subarray
+                    curr += nums[i];
+                }
+                else 
+                {
+                    //insert element to next subarray
+                    calcK++;
+                    curr = nums[i];
+                }  
+           } 
+
+            if(calcK <= k)
+            {
+                ans = mid;
+                right = mid - 1;                
+            }
+            else if(calcK > k)
+            {
+                left = mid + 1;
+            }            
+
+        }
+        return ans;
+
+    }
+};

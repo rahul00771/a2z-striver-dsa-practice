@@ -1,0 +1,50 @@
+//Painter's partition
+
+int findLargestMinDistance(vector<int> &boards, int k)
+{
+    int n = boards.size();
+
+    int greatest = 0;
+    int sum = 0;
+
+    for(int i = 0; i<n; i++)
+    {
+        sum = sum + boards[i];
+        if(boards[i]>greatest)
+            greatest = boards[i];
+    }
+
+    int left = greatest, right = sum, ans = -1;
+
+    while(left<=right)
+    {
+        int mid = (left+right)/2;
+        int curr = 0, painters = 1;
+        for(int i = 0; i<n; i++)
+        {
+            if((curr + boards[i])<=mid)
+            {
+                curr = curr + boards[i];
+            }
+            else
+            {
+                painters++;
+                curr = boards[i];
+            }
+        }
+
+        if(painters <= k )
+        {
+            ans = mid;
+            right = mid - 1;
+        }
+        else
+        {
+            left = mid + 1;
+        }
+    }
+
+    return ans;
+
+    
+}
