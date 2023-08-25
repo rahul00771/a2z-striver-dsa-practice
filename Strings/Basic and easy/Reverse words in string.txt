@@ -1,0 +1,24 @@
+//Reverse words in a string
+
+class Solution {
+public:
+    string reverseWords(string s) {
+        //two pointer approach
+        string result;
+        int i = 0;
+        int n = s.length();
+
+    while(i < n){
+        while(i < n && s[i] == ' ') i++;    //taking i to the first non space char
+        if(i >= n) break;       //if i exceeds n, come out
+        int j = i + 1;          //start j from i+1
+        while(j < n && s[j] != ' ') j++;    //take j to next space 
+        string sub = s.substr(i, j-i);      //store the sub arr in sub
+        if(result.length() == 0) result = sub;      //if ans is empty, enter ans
+        else result = sub + " " + result;       //concenetate
+        i = j+1;        //taking i to next char
+    }
+    return result;
+        
+    }
+};
