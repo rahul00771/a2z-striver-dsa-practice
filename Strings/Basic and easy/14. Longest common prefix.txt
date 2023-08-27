@@ -1,0 +1,56 @@
+//14. Longest common prefix
+
+
+#include<bits/stdc++.h>
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& arr) {
+        int n = arr.size();
+
+        //to find the smallest string, as it can be a prefix, and no prefix can be greater than that
+
+        string smallest = arr[0];
+        int smallestIdx = 0, smallestSize = arr[0].length();
+
+        for(int i = 0; i<n; i++)
+        {        
+            if(arr[i].length()<smallest.length())
+            {
+                smallest = arr[i];
+                smallestSize = arr[i].length();
+                smallestIdx = i;
+            }
+        }
+        
+        //to count number of equal comparisons
+        int cnt = 0;
+        //1st we will consider the whole string(the smallest one)
+        int j = smallestSize;
+        
+        while(j>=0)
+        {            
+            string str1 = arr[smallestIdx].substr(0, j);
+
+            //checking how many strings have the same prefix
+            for(int i = 0; i<n; i++)
+            {
+                string str2 = arr[i].substr(0, j);
+                if(str1 == str2)
+                    cnt++;
+                else
+                {
+                    j--;
+                    cnt = 0;
+                    break;
+                }
+
+                if(cnt == n)
+                    return str1;
+            }            
+        }
+        
+
+        return "";
+    }
+};

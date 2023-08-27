@@ -1,0 +1,25 @@
+//1903. Largest odd in a string
+
+
+#include<bits/stdc++.h>
+
+class Solution {
+public:
+    string largestOddNumber(string num) {
+        
+        int n = num.length();
+       
+
+       //iterate from right side, whenever an odd number is encountered return substring(0, i+1)
+       for(int i = n-1; i>=0; i--)
+       {
+           if((int)num[i]%2 == 1)
+           {
+               return num.substr(0, i+1);
+           }
+       }
+
+       return "";
+
+    }
+};
