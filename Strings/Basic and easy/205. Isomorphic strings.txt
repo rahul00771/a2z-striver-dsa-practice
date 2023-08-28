@@ -1,0 +1,47 @@
+//205. Isomorphic strings
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        
+        //to store the ele and index
+        unordered_map<char, int> mp1;
+        unordered_map<char, int> mp2;
+
+        int n = s.length();
+
+
+        for(int i = 0; i<n; i++)
+        {   
+            //if s[i] is not present store it with its index
+            if( mp1.find(s[i]) == mp1.end() )
+                mp1[s[i]] = i;
+            //if already present
+            else
+            {
+                //check in the other array the pistions i and the previous idx where we found s[i], i.e. mp1[s[i]]
+                if(t[i] == t[mp1[s[i]]])
+                    mp1[s[i]] = i;
+                //if not equal, return false
+                else
+                    return false;
+            }
+
+            //now apply the same logic on t, beacuse we are checking only repeating elements of s (mapping s with t)
+            //now check the ele of t and map with s
+
+            if( mp2.find(t[i]) == mp2.end() )
+                mp2[t[i]] = i;
+            else
+            {
+                if(s[i] == s[mp2[t[i]]])
+                    mp2[t[i]] = i;
+                else
+                    return false;
+            }
+        }        
+
+        return true;
+
+    }
+};
