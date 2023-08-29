@@ -1,0 +1,37 @@
+//1021. Remove outermost paranthesis
+
+class Solution {
+public:
+    string removeOuterParentheses(string s) {
+        
+        string ans = "";
+        bool flag = 1;
+        int cnt = 0;
+
+        for(int i; i<s.length(); i++ )
+        {
+            if(s[i] == '(')
+                cnt++;
+            else if(s[i] == ')')
+                cnt --;
+            //we can remove the paranthesis where cnt = 0 or 1, (but non outermost paranthesis can also have 1 cnt)
+            //so we will switch between flag, first we find 1 and switch to 0, if 0 found again switch to 1
+            if(cnt == 1 && flag == 1)
+            {
+                flag = 0;
+                continue;
+            }
+            else if(cnt == 0)
+            {
+                flag = 1;
+                continue;
+            }
+
+        
+            ans = ans + s[i];
+        }
+
+        return ans;
+
+    }
+};
