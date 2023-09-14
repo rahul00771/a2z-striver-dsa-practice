@@ -1,0 +1,56 @@
+//Row with max 1
+
+int rowWithMax1s(vector<vector<int>> &matrix, int n, int m)
+{
+    //cnt for counting current count, ans for max 1s till now, index for the final index
+    int cnt = 0, ans = 0, index = -1;
+
+    //traversing each row
+    for(int i = 0; i<n; i++)
+    {
+        //applying BS to find the lower bound of 1 in the row, so that we can find no. of 1s (i.e cnt)
+        int left = 0, right = m-1;
+
+        //if no 1s present, then lowerbound of 1 will be at m, if no 0s then lowerbound at 0
+        int lowerBound = matrix[i][0] == 0? m : 0;
+
+        while(left<=right)
+        {
+            int mid = (left+right)/2;
+
+            if(matrix[i][mid] == 1)
+            {
+                if(mid>0 && matrix[i][mid-1] == 0)
+                {
+                    lowerBound = mid;
+                    break;
+                }
+                else
+                    right = mid - 1;
+
+            }
+            else
+            {
+                if(mid < m-1 && matrix[i][mid+1] == 1)
+                {
+                    lowerBound = mid + 1;
+                    break;
+                }
+                else
+                    left = mid + 1;
+            }
+        }
+
+        //to count number of 1s
+        cnt = m-(lowerBound);
+        if(cnt>ans)
+        {
+            ans = cnt;
+            index = i;
+            cnt == 0;
+        }
+    }
+
+    return index;
+
+}
