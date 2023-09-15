@@ -1,0 +1,125 @@
+//8. String to integer(atoi)
+
+
+//INT_MIN = -2147483648
+//INT_MAX =  2147483647
+
+
+//if p and 47 -> 47
+//if p and 48 -> 47
+//if n and 47 -> -47
+//if n and 48 -> -48
+
+
+//increment the iterator when leadingSpace = 0 and it is a space or 0 and set leadingSpace = 1
+//check for sign(ascii), store it in a variable called sign
+//check for number range (0-9) and store it in res and calc ans, ans = mul + res and mul = ans*10 
+//check else(non space, non sign, non digit) -> break
+
+
+//if any character before number, return 0
+//number first - > valid op
+//no spaces between numbers
+//if non number then return
+
+
+class Solution {
+public:
+    int myAtoi(string s) {        
+
+        //for constructing the number
+        long long ans = 0, digit = 0, mul = 0, res = 0;
+
+        //numbersign stores the sign, sign visit stores whether we have visited a sign or number
+        bool numberSign = 0, signVisit = 0;
+
+        int n = s.length(), i = 0;
+
+        while(i<n)
+        {
+            int j = i;
+
+            //take j to the 1st non space char. (to take first, we took i<1). (If not a first space then moves to else)
+            while(j<n && i<1 && s[j] == ' ')
+            {
+                j++;
+            }
+
+            //take j to 1st non 0 character. (to take first, we took i<1). (If not a first 0 then moves to number part)
+            while(j<n && i<1 && s[j] == '0')
+            {                
+                j++;
+            }
+
+            //update i
+            i = j;
+            
+            //check for sign if not visited a sign earlier(if visited moves to else)
+            if(s[i] == '-' && signVisit == 0)
+            {
+                //after the first sign visit, we update the signVisit
+                numberSign = 1;
+                signVisit = 1;
+                if(i != 0 && s[i-1] == '0')
+                    break;
+            }    
+                
+            else if(s[i] == '+' && signVisit == 0)
+            {
+                //after the first sign visit, we update the signVisit
+                numberSign = 0;
+                signVisit = 1;
+                //an edge case
+                if(i != 0 && s[i-1] == '0')
+                    break;
+            }
+
+            else if(s[i]>47 && s[i]<58)
+            {
+                //after the first digit visit, we update the signVisit because sign after digit makes no sense and on finding a sign after a digit we will break
+                signVisit = 1;
+                //constructing the number
+                res = s[i] - '0';
+                ans = mul + res;
+                mul = ans*10;
+
+                if(ans>INT_MAX)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+
+            i++;
+
+        }
+
+    if(ans>=INT_MAX)
+    {
+        if(numberSign == 0 )
+            ans = INT_MAX;
+        else if(numberSign == 1 && ans>INT_MAX)
+            ans = INT_MIN;
+        else
+            ans = INT_MIN+1;
+    }
+    else
+    {
+        if(numberSign == 0)
+            ans = ans;
+        else
+            ans = - (ans);  
+    }
+
+
+        return ans;
+    }
+};
+
+
+
+
+
