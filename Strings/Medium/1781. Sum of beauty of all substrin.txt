@@ -1,0 +1,33 @@
+//1781. Sum of beauty of all substrings
+
+class Solution {
+public:
+    int beautySum(string s) {
+        int n = s.length();
+
+        int res = 0;
+
+        for(int i = 0; i<n; i++)
+        {
+            unordered_map<char, int> charCount;
+
+            for(int j = i; j<n; j++)
+            {
+                charCount[s[j]]++;
+                int max = 0, min = 501;
+                for(auto it:charCount)                
+                {
+                    if(it.second>max)
+                        max = it.second;
+                    if(it.second<min)
+                        min = it.second;
+                }
+
+                res += max-min;
+            }
+            
+        }
+
+        return res;
+    }
+};
