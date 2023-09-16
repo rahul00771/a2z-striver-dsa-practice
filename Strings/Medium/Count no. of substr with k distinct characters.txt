@@ -1,0 +1,75 @@
+//Count with distinct characters
+
+
+//helper function
+//to return number of substrnigs with at most x distinct chars
+
+int distinctCharSub(string s, int x)
+{
+    int n = s.length();
+    
+    //j will be the ending point of the substring
+    //i will be the starting point of the substring
+    int j = 0, i = 0;
+
+    //to count number of distinct chars till now
+    int currCount = 0;
+
+    //hash array
+    char charCount[26] = {0};
+
+    int res = 0;
+
+    //subarray window -> i to j
+
+
+    while(j<n)
+    {   
+        int ch = s[j] - 'a';
+        charCount[ch]++;
+
+        //check if it is for the first time then increment discrete char count currCount
+        if(charCount[ch] == 1)
+            currCount++;
+        
+        //check if currCount > x -> then start removing elements from the starting of subarr
+        //from hash array(remove element at i)
+
+        while(currCount>x)
+        {
+            int firstEleSubstr = s[i] - 'a';
+            //ith element removed
+            charCount[firstEleSubstr]--;
+
+            //check if it is still present somewhere in the subarr
+            //if not decrement charCount because we lose on distinct
+            if(charCount[firstEleSubstr] == 0)
+                currCount--;
+            
+            //and then move i to the next one
+            i++;
+        }
+
+        res = res + (j-i+1);
+
+        j++;
+
+    }
+
+    return res;
+    
+}
+
+
+
+int countSubStrings(string str, int k) 
+{
+    
+//substr with k distinct = substr with atmost k - substr with atmost k-1
+
+    int atmostK = distinctCharSub(str, k);
+    int atmostKminus1 = distinctCharSub(str, k-1);
+
+    return atmostK - atmostKminus1;
+    
+}
