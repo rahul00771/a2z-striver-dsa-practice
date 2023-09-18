@@ -1,0 +1,28 @@
+//74. Search in a 2d matrix
+
+class Solution {
+public:
+
+    bool searchMatrix(vector<vector<int>>& matrix, int target)
+    {
+        int m = matrix.size(), n = matrix[0].size();
+
+        //start from top right corner
+        int i = 0, j = n-1;
+
+        while(i<m && j>=0)
+        {
+            if(matrix[i][j] == target)
+                return true;
+           //if target is greater, it will lie in the next row(i.e below)
+            else if(target > matrix[i][j])
+                i++;
+           //if target is lesser, it will lie in the left part
+            else if(target < matrix[i][j])
+                j--;
+        }
+
+        return false;
+    }
+
+};
