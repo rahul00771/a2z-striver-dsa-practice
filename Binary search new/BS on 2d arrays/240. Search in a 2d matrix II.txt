@@ -1,0 +1,30 @@
+//240. Search in a 2d matrix II
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        int m = matrix.size(), n = matrix[0].size();
+        int left = 0, right = n-1, up = 0, down = m-1;
+        
+        //start from the right upper corner
+        int i = up, j = right;
+
+        while(j>=left && i<=down)
+        {
+            int currElement = matrix[i][j];
+            //shifting the right upper corner
+            
+            //if we need greater than current Ele, then increment the row (as it contains only smaller elements)
+            if(currElement == target)
+                return true;
+            //if we need smaller ele than currEle, decrement the col(as the column contains oonly greater elements)
+            else if( target>currElement )
+                i++;
+            else
+                j--;
+        }
+
+        return false;
+    }
+};
