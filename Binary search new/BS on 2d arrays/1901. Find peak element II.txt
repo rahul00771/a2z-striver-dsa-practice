@@ -1,0 +1,54 @@
+//1901. Find peak element II
+
+class Solution {
+public:
+    vector<int> findPeakGrid(vector<vector<int>>& mat) {
+        
+        int m = mat.size(), n = mat[0].size();
+        
+        int left = 0, right = n-1;
+
+        //we will find the row with max val using for loop for a column number,
+        //apply BS to find the column number where max Col val is present
+
+        while(left<=right)
+        {
+            //fix the middle column and then find greatest in that column,
+            //then compare it with the left and right element
+
+            int midCol = (left+right)/2;
+
+            //find the greatest ele in that column
+            int maxRow = 0;
+            for(int i = 0; i<m; i++)
+            {
+                if(mat[i][midCol] > mat[maxRow][midCol])
+                    maxRow = i;
+            }
+            
+            //current value which we will check if peak or not
+            int currEle = mat[maxRow][midCol];
+
+            //we found the greatest element in that column in the maxRow, midCol index
+            //now we check the left and right element
+            //we set the left and right element value w.r.t the value of midCol(selected column)
+
+            int leftEle = midCol == 0 ? -1 : mat[maxRow][midCol-1];
+            int rightEle = midCol == n-1 ? -1 : mat[maxRow][midCol+1];
+
+
+            //now compare the left and right values with the current value
+            if(currEle>leftEle && currEle>rightEle)        
+                return {maxRow, midCol};
+            else if( leftEle>currEle )
+                right = midCol - 1;
+            else
+                left = midCol + 1;
+
+
+        }
+
+        return {-1, -1};
+       
+    }
+};
