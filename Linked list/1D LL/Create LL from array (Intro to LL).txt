@@ -1,0 +1,30 @@
+//Create LL from array (Intro to LL)
+
+Node* constructLL(vector<int>& arr) {
+    
+    //creating the head node(with address = head. data = a[0], next = NULL)
+    Node* head = new Node(arr[0]);
+    
+    //pointer which will point to the last element of the LL
+    Node *last;
+
+    //assigning the last pointer as head, because at only 1 element, both head and last pointer should be same
+    last = head;
+
+    //inserting the other elements(non head elements)
+    for(int i = 1; i<arr.size(); i++)
+    {
+        //create a curr node with data arr[i], next = NULL
+        Node* curr = new Node(arr[i]);
+
+        //assign the next of the node(which was pointed by last) as the address of current node
+        last -> next = curr;
+
+        //assigning the curr as the last node because it became the last node
+        last = curr;
+    }
+
+    //finally returning the head pointer
+    return head;
+
+}
