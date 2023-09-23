@@ -1,0 +1,36 @@
+//Delete node of a LL
+
+
+Node *deleteLast(Node *list){
+    
+
+    // Node* last = list;
+
+    // for (Node* curr = list->next; curr != NULL; curr = curr -> next)
+    // {
+    //     if(curr -> next == NULL)
+    //     {
+    //         last -> next = NULL;
+    //         delete curr;
+    //     }
+    //     else
+    //     {
+    //         last -> next = curr;
+    //         last = curr;
+    //     }
+    // }
+
+
+    Node* curr = list;
+
+    while(curr -> next -> next != NULL)
+        curr = curr -> next;
+
+    delete curr->next;
+
+    curr -> next = NULL;
+
+
+    return list;
+
+}

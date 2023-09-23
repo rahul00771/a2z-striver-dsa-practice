@@ -1,0 +1,19 @@
+//237. Delete node in a LL(no head given)
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+
+        //we have no option to access the previous node, so will take help of next node
+        ListNode* nextNode = node -> next;
+
+        //moving the nextNode to the previous(i.e node) and then connecting the node to nextNode->next
+        //and then deleting the nextNode
+        
+        node -> val = nextNode -> val;
+        node -> next = nextNode -> next;
+
+        delete nextNode;
+
+    }
+};

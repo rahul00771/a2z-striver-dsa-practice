@@ -1,0 +1,16 @@
+//Insert node at beginning
+
+Node* insertAtFirst(Node* list, int newValue) {
+
+    //here list is the head
+    
+    //we create a newNode with data -> newValue and next -> NULL
+    Node* newNode = new Node(newValue);
+
+    newNode -> next = list;
+    
+    list = newNode;
+
+    return list;
+
+}
