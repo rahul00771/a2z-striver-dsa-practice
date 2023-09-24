@@ -1,0 +1,13 @@
+//Count nodes of alinked list
+
+int length(Node *head)
+{
+
+    int cnt = 0;
+
+    for(Node* curr = head; curr != NULL; curr = curr->next)
+        cnt++;
+    
+    return cnt;
+
+}

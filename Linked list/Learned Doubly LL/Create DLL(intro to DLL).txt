@@ -1,0 +1,28 @@
+//Create DLL
+
+Node* constructDLL(vector<int>& arr) {
+    
+    //creating the first node
+    Node* first = new Node(arr[0]);
+
+    //storing the 1st address in last
+    Node* last = first;
+
+    for(int i = 1; i<arr.size(); i++)
+    {
+        //creating a new node with arr[i]
+        Node* curr = new Node(arr[i]);
+
+        //setting the last's next as current
+        last -> next = curr;
+
+        //setting current's prev as last
+        curr -> prev = last;
+
+        //updating the last with current
+        last = curr;
+    }
+
+    return first;
+
+}

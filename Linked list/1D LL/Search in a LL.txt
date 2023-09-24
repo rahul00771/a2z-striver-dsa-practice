@@ -1,0 +1,11 @@
+//Search in a LL
+
+int searchInLinkedList(Node<int> *head, int k) {
+    
+    for(Node<int>* curr = head; curr != NULL; curr = curr->next)
+    {        
+        if(curr->data == k)
+            return 1;
+    }
+    return 0;
+}
