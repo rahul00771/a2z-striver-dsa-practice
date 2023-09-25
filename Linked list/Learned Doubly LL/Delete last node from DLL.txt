@@ -1,0 +1,22 @@
+//Delete last node from DLL
+
+Node * deleteLastNode(Node *head) {
+    
+    Node* curr = head;
+
+    if(head->next == NULL)
+        return NULL;
+
+    while(curr->next->next != NULL)
+    {
+        curr = curr->next;
+    }
+
+    curr->next = NULL;
+    
+    delete curr->next;
+
+    return head;
+
+
+}
