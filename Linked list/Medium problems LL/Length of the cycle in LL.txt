@@ -1,0 +1,84 @@
+//Length of the cycle in LL
+
+//-------------------Approach 1(find where slow == next and iterate slow again to get fast)
+
+int lengthOfLoop(Node *head)
+{
+    Node* slow = head;
+    Node* fast = head;
+
+    //get the entry point or the staring point of the cycle
+    while(fast!=NULL && fast->next!= NULL)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if(slow == fast)
+            break;
+    }
+
+    //if no loop
+    if(fast == NULL || fast->next == NULL)
+        return 0;
+
+    int cnt = 0;
+
+    //iterate slow until it reaches fast again
+    while(slow->next != fast)
+    {
+        cnt++;
+        slow = slow->next;
+    }
+    
+
+    return cnt+1;
+
+}
+
+
+
+//-------------------------2nd approach(find starting point and iterate to get the length)
+
+
+// int lengthOfLoop(Node *head) {
+    
+//     Node* slow = head;
+//     Node* fast = head;
+
+//     //get the entry point or the staring point of the cycle
+//     while(fast!=NULL && fast->next!= NULL)
+//     {
+//         slow = slow->next;
+//         fast = fast->next->next;
+
+//         if(slow == fast)
+//         {
+//             Node* entry = head;
+//             while(entry != slow)
+//             {
+//                 slow = slow->next;
+//                 entry = entry->next;
+//             }
+//             break;
+//         }
+//     }
+
+//     //if no loop
+//     if(fast == NULL || fast->next == NULL)
+//         return 0;
+
+//     //got the starting point in slow store in start
+//     Node* start = slow;
+
+//     int cnt = 0;
+
+//     //iterating from slow->next until we found slow again
+//     while(slow->next != start)
+//     {
+//         cnt++;
+//         slow = slow->next;
+//     }
+    
+//     return cnt+1;
+
+// }

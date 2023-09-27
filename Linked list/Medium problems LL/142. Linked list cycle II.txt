@@ -1,0 +1,31 @@
+//142. Linked list cycle II
+
+ListNode *detectCycle(ListNode *head) {
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+
+        ListNode* entry = head;
+
+        while(fast != NULL && fast->next != NULL)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if(slow == fast)
+            {
+                //move slow by one place and entry by one place we will get entry = slow at an instance
+                while(entry != slow)
+                {
+                    entry = entry->next;
+                    slow = slow->next;
+                }
+                
+                return entry;
+            }
+        }
+
+        return NULL;
+
+    }
