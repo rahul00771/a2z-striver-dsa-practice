@@ -1,0 +1,27 @@
+//328. Odd even LL
+
+ListNode* oddEvenList(ListNode* head) {
+
+        //if 2 or less than 2 nodes
+        if(head == NULL || head->next == NULL || head->next->next == NULL)
+            return head;
+        
+
+        ListNode* odd = head;
+        ListNode* even = head->next;
+        //storing the pointer to 1st even index(to be linked to the last oddd index)
+        ListNode* firstEven = even;
+
+        while(odd->next != NULL && even->next != NULL)
+        {
+            odd->next = even->next;
+            odd = odd->next;
+            even -> next = odd->next;
+            even = even->next;
+        }
+
+        odd->next = firstEven;
+
+        return head;
+        
+    }
