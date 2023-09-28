@@ -1,0 +1,53 @@
+//234. Palindrome linked list
+
+bool isPalindrome(ListNode* head) {
+        
+       //if we reverse the LL and then check like array(it won't work)
+       //because we break the links while reversing the LL
+       //so we move till mid then reverse the later part and then check the front half with later half
+
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast->next != nullptr && fast->next->next != nullptr)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }       
+        
+        //we got the mid pont in slow, now reverse from slow.next to end
+
+        ListNode* prev_p = nullptr;
+        ListNode* curr_p = slow->next;
+        ListNode* next_p;
+
+        while(curr_p != nullptr)
+        {
+            //intitilising next with current's next
+            next_p = curr_p->next;
+
+            //breaking the link of curr and next and linking prev with curr
+            curr_p->next = prev_p;
+            
+            //moving prev and curr forward
+            prev_p = curr_p;
+            curr_p = next_p;
+        }       
+
+        //taking two temp pointers from head and prev_p respectively
+        ListNode* headLeft = head;
+        ListNode* headRight = prev_p;
+
+        //iterating until we reach end of right half
+        while(headRight != nullptr)
+        {
+            if(headLeft->val != headRight->val)
+                return false;
+
+            headLeft = headLeft->next;
+            headRight = headRight->next;
+        }
+
+        return true;
+
+    }
