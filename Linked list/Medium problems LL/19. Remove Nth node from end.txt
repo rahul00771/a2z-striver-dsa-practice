@@ -1,0 +1,34 @@
+//19. Remove Nth node from end
+
+ListNode* removeNthFromEnd(ListNode* head, int n) {
+
+
+        //if only one or no nodes
+        if(head->next == nullptr || head == nullptr)
+            return nullptr;
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+
+        //main intuition is to create a gap of n nodes betn slow and fast then we take fast to the end and our slow reaches to size-n
+
+        //taking the fast pointer to the nth node from the beginning
+        for(int i = 1; i<=n; i++)
+            fast = fast->next;
+        
+        //if n = size, saimply removing the first node
+        if(fast == nullptr)
+            return head->next;
+        
+        //taking the fast and slow by one step until our fast reaches last node and our slow is at n from last
+        while( fast->next != nullptr)
+        {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        slow->next = slow->next->next;
+
+    return head;
+
+    }
