@@ -1,0 +1,30 @@
+//2095. Deleting the middle node
+
+ListNode* deleteMiddle(ListNode* head) {
+
+        if(head == NULL || head->next == NULL)
+            return nullptr;
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* last = NULL;
+
+        while(fast->next != NULL && fast->next->next != NULL)
+        {
+            last = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        if(fast->next == NULL)
+        {        
+            last->next = slow->next;
+        }
+        else
+        {
+            slow->next = slow->next->next;
+        }
+
+        return head;
+
+    }
