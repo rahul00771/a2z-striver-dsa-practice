@@ -1,0 +1,48 @@
+//160. Intersection of 2 LL
+
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        
+            ListNode* curr1 = headA;
+            ListNode* curr2 = headB;
+            
+            //to find the number of extra nodes in the bigger ll
+            while(curr1 != nullptr && curr2 != nullptr)
+            {
+                curr1 = curr1->next;
+                curr2 = curr2->next;
+            }
+
+            //the current node of the bigger LL
+            ListNode*  biggerLLCurr = (curr1 == nullptr) ? curr2 : curr1;
+
+            //count the difference of number of nodes
+            int cnt = 0;
+            while(biggerLLCurr != nullptr)
+            {
+                cnt++;
+                biggerLLCurr = biggerLLCurr->next;
+            }
+
+            //move a new pointer to the bigger LL after skipping cnt nodes from the head
+            ListNode*  biggerLLhead = (curr1 == nullptr) ? headB : headA;
+
+            for(int i = 1; i<=cnt; i++)
+                biggerLLhead = biggerLLhead -> next;
+            
+            //now both our LL have same number of nodes starting from biggerLLhead and the smaller head
+
+            ListNode* smallHead = (curr1 == nullptr) ? headA : headB;
+
+            cout<<smallHead->val<<endl<<biggerLLhead->val;
+
+            while(smallHead != nullptr && biggerLLhead != nullptr)
+            {
+                if(smallHead == biggerLLhead)
+                    return smallHead;
+                smallHead = smallHead -> next;
+                biggerLLhead = biggerLLhead -> next;
+            }
+
+            return nullptr;
+
+    }
