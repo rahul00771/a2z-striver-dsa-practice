@@ -1,0 +1,91 @@
+//148. Sort List
+
+class Solution {
+public:
+
+    // slow-fast algorithm to find the mid of the LL
+    ListNode* getMid(ListNode* head)
+    {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast -> next != NULL && fast-> next -> next != NULL)
+        {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+
+        return slow;
+    }
+
+    ListNode* merge(ListNode* left, ListNode* right)
+    {
+        //create a temp node with any value(say -1)
+        ListNode* temp = new ListNode(-1);
+        
+        //node to initially point at the head of the temp LL
+        ListNode* ans = temp;
+
+        //merging the two LL based on their val
+        while(left != NULL && right != NULL)
+        {
+            if(left -> val < right -> val)
+            {
+                temp -> next = left;
+                temp = temp -> next;
+                left = left -> next;
+            }
+            else
+            {
+                temp -> next = right;
+                temp = temp -> next;
+                right = right -> next;
+            }
+        }
+
+        //if  more element left in the left LL
+        while(left != NULL)
+        {
+            temp -> next = left;
+            temp = temp -> next;
+            left = left -> next;   
+        }
+
+        //if more element is left in the right LL
+        while(right != NULL)
+        {
+            temp -> next = right;
+            temp = temp -> next;
+            right = right -> next;
+        }
+
+        //updating the ans = point to the next of the head of the temp because 1st node contains -1
+        ans = ans -> next;
+        return ans;
+
+    }
+
+    ListNode* sortList(ListNode* head) {
+        
+        //base case(1 or 0 nodes)
+        if(head == NULL || head->next == NULL)
+            return head;
+        
+        //splitting the LL into 2 LL's (using fastSlow algo we get mid)
+        ListNode* left = head;
+        ListNode* mid = getMid(head);
+        ListNode* right = mid->next;
+
+        //break the link of last node of left LL
+        mid -> next = NULL;
+
+        //further divide the LL till we get every single node
+        left = sortList(left);
+        right = sortList(right);
+
+        //now merging the divided nodes
+        ListNode* ans = merge(left, right);
+
+        return ans;
+    }
+};
