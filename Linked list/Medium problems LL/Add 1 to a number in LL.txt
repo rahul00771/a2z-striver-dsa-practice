@@ -1,0 +1,75 @@
+// Add 1 to a number in LL
+
+//to reverse the LL
+Node* reverse(Node* head)
+{
+    Node* curr = head;
+    Node* pre = NULL;
+
+    while(curr != NULL)
+    {
+        Node* nex = curr-> next;
+
+        curr -> next = pre;
+        pre = curr;
+
+        curr = nex;
+    }
+
+    return pre;
+
+}
+
+
+Node *addOne(Node *head)
+{
+    
+    //reverse the LL
+    Node* revHead = reverse(head);
+
+    Node* curr = revHead;
+
+
+    //dummy node to get the last node for creating an extra node at last(as curr will go to null)
+    Node* prev = new Node(-1);    
+    prev -> next = revHead;
+
+    
+    bool carry = 1;
+
+    //iterating in the reversed LL
+    while(curr != NULL)
+    {
+        //if 9 make zero and carry 1
+        if(curr -> data == 9 && (carry == 1))
+        {
+            curr -> data = 0;
+            carry = 1;
+        }
+        //if not 9 and carrry ->  add data and carry 0
+        else if(curr -> data != 9 && (carry == 1))
+        {
+            curr -> data = curr -> data + 1;
+            carry = 0;
+        }
+        
+        //move curr and next
+        curr = curr -> next;
+        prev = prev -> next;
+    }
+
+    //if at the end there is carry add a node
+    if(carry == 1)
+    {
+        Node* extra = new Node(1);
+        prev -> next = extra;
+    }
+
+
+    //again reverse after adding
+    Node* ans = reverse(revHead);
+
+    return ans;
+
+
+}
