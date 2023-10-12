@@ -1,0 +1,47 @@
+//Delete all occurences of a key in DLL
+
+Node * deleteAllOccurrences(Node* head, int k) {
+    
+    if(head == NULL)
+        return NULL;
+
+    Node* pre = new Node(-1);
+    
+    //establishing the link between head and pre
+    pre -> next = head;
+    head -> prev = pre;
+
+    Node* ans = pre;
+    
+    Node* curr = head;
+    Node* nex = curr -> next;
+
+    while(nex != NULL)
+    {
+        //chaning the links(omitting the curr node)
+        if(curr -> data == k)
+        {
+            nex -> prev = pre;
+            pre -> next = nex;
+            curr = nex;
+            nex = nex -> next;
+        }
+        //if not then moving all
+        else
+        {
+            pre = pre -> next;
+            curr = curr -> next;
+            nex = nex -> next;
+        }
+    }
+
+    //when nex is out of LL and curr is at last
+    if(curr -> data == k)
+    {
+        pre -> next = NULL;
+        curr -> prev = NULL;
+    }
+
+    return ans -> next;
+
+}
