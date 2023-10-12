@@ -1,0 +1,36 @@
+//Remove duplicates from DLL
+
+Node * removeDuplicates(Node *head)
+{
+    
+    Node* curr = head;
+    Node* pre = head;
+    Node* n = curr -> next;
+
+    while(n != NULL)
+    {
+       
+        if(pre->data == curr->data)
+        {
+            n->prev = pre;
+            pre->next = n;
+            // pre = pre->next;
+            curr = curr->next;
+            n = n->next;
+        }
+        else
+        {
+            pre = curr;
+            curr = pre->next;
+            n = curr->next;
+                               
+        }        
+    }
+    if(pre->data == curr->data)
+    {
+        pre->next = NULL;
+    }
+
+    return head;
+
+}
